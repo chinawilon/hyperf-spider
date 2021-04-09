@@ -1,0 +1,29 @@
+{
+  "name": "chinawilon/hyperf-spider",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "chinawilon",
+      "email": "5wilon@sina.com"
+    }
+  ],
+  "require": {
+    "hyperf/command": "~2.1.0",
+    "hyperf/utils": "~2.1.0"
+  },
+  "require-dev": {
+    "swoole/ide-helper": "^4.5"
+  },
+  "extra": {
+    "hyperf": {
+      "config": "Spider\\ConfigProvider"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Spider\\": "src/"
+    }
+  }
+}
