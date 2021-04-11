@@ -11,6 +11,7 @@ class CityList implements ParserInterface
 {
     public function parse(string $body): ParseResult
     {
+
         return new ParseResult();
     }
 }

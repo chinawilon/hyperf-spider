@@ -44,9 +44,10 @@ class Spider extends HyperfCommand
         $engine = new ConcurrentEngine(
             new QueueScheduler(),
             new Processor(),
-            ItemSaver::getItemChan(),
+            //ItemSaver::getItemChan(),
+            null,
             $workerCount,
         );
-        $engine->run(new Request("http://www.zhenai.com/zhenghun", new CityList()));
+        $engine->run(new Request("https://www.zhenai.com/zhenghun", new CityList()));
     }
 }

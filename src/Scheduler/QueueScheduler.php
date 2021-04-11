@@ -5,7 +5,6 @@ namespace Spider\Scheduler;
 
 
 use Spider\Request;
-use Swoole\Coroutine;
 use Swoole\Coroutine\Channel;
 
 
@@ -33,28 +32,26 @@ class QueueScheduler implements SchedulerInterface
         $workerQ  = [];
         $requestQ = [];
 
-        $cid = go(function () use(&$workerQ, &$requestQ) {
+        go(function () use(&$workerQ, &$requestQ) {
             for (;;) {
                 if (count($workerQ) > 0 && count($requestQ) > 0 ) {
                     $worker = array_shift($workerQ); // worker
                     $request = array_shift($requestQ); // request
                     $worker->push($request);
                 }
-                Coroutine::yield();
+                usleep(1); // yield
             }
         });
 
-        go(function () use(&$workerQ, $cid) {
+        go(function () use(&$workerQ) {
             for (;;) {
                 $workerQ[] = $this->workerChan->pop();
-                Coroutine::resume($cid);
             }
         });
 
-        go(function () use(&$requestQ, $cid){
+        go(function () use(&$requestQ){
             for (;;) {
                 $requestQ[] = $this->requestChan->pop();
-                Coroutine::resume($cid);
             }
         });
     }

@@ -12,7 +12,7 @@ class Processor implements ProcessorInterface
 {
     public function process(Request $request)
     {
-        $http = new Client($request->getHost(), $request->getPort());
+        $http = new Client($request->getHost(), $request->getPort(), true);
 
         echo 'fetching url: ' . $request->getUrl() . PHP_EOL;
 
@@ -21,6 +21,7 @@ class Processor implements ProcessorInterface
         });
 
         $parser = $request->getParser();
-        return $parser->parse($http->get($request->getPath() . '?' . $request->getQuery()));
+        $http->get($request->getPath() . '?' . $request->getQuery());
+        return $parser->parse($http->body);
     }
 }

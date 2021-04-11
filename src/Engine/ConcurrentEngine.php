@@ -38,7 +38,7 @@ class ConcurrentEngine
      */
     private $itemChan;
 
-    public function __construct(SchedulerInterface $scheduler, ProcessorInterface $processor, Channel $itemChan, $workerCount)
+    public function __construct(SchedulerInterface $scheduler, ProcessorInterface $processor, ?Channel $itemChan, $workerCount)
     {
         $this->scheduler = $scheduler;
         $this->workerCount = $workerCount;
